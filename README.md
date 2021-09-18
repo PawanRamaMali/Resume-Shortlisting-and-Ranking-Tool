@@ -2,6 +2,29 @@
 
 Resume Shortlisting and Ranking Tool - RSART
 
+## Problem Statement
+
+> Finding suitable candidates for an open role could be a daunting task, especially when there are many applicants. It can impede team progress for getting the right person on the right time. An automated way of “Resume Shortlisting and Ranking Tool” could really ease the tedious process of fair screening and shortlisting, it would certainly expedite the candidate selection and decisionmaking process.
+
+
+## Introduction 
+
+Resume shortlisting and screening is the process of determining whether a candidate is qualified for a role based his or her education, experience, and other information captured on their resume.
+
+In a nutshell, it’s a form of pattern matching between a job’s requirements and the qualifications of a candidate based on their resume.
+The goal of screening resumes is to decide whether to move a candidate forward – usually onto an interview – or to reject them.
+
+
+## Why NLP
+
+NLP for resume shortlisting and screening can handle massive volumes of data. In fact, NLP requires a lot of data in order to make accurate recommendations about which candidates to move forward to the next stage.
+This means this Resume Shortlisting and Ranking software is most valuable for high volume recruitment such as retail sales or customer service roles.
+The time you save screening resumes can be used in more valuable ways, whether it’s sourcing, engaging, or interviewing candidates to help determine how well they’ll fit in the job and company culture.
+
+## Solution Overview
+
+The main feature of the current solution is that it searches the entire resume database to select and display the resumes which fit the best for the provided job description(JD). This is, in its current form, achieved by assigning a score to each resume by intelligently comparing them against the corresponding Job Description.
+
 ## Instructions to Run the Tool 
 
 * Download the code files
@@ -23,6 +46,9 @@ pip install -r requirements.txt
 python app.py
 ```
 
+* Open browser and visit `http://localhost:8000/` to view the application 
+
+## Screenshots
 
 ### Home Page 
 
@@ -51,3 +77,19 @@ Credentials
 
 
 
+## Version Control
+
+### Version 0.1.0
+
+#### Features
+* Users can Login with default credentials
+* Users can Select Job description from dropdown to search for all candidates matching with that job description
+* The NLP algorithm will search for resumes matching the job description
+* The resume search process has parser functions to match the text using NLP 
+* The matching resumes are assigned a score and resumes with top 10 scores are selected
+* The results page displays the list of resumes based on the score ranking 
+* The results table also has a link to download column from where corresponding resume can be downloaded
+
+### Issues
+* The results is not showing showing the phone numbers correctly 
+* Need to parse more information from resumes to be displayed in the results page
