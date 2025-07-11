@@ -1,0 +1,10 @@
+-r base.txt
+
+# Production server
+gunicorn==21.2.0
+
+# Monitoring
+sentry-sdk[flask]==1.32.0
+
+# Environment management
+python-decouple==3.8
