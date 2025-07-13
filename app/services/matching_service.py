@@ -4,8 +4,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
-from app.extensions import Candidate
-from app.extensions import JobDescription
+from app.models.candidate import Candidate
+from app.models.job_description import JobDescription
 from app.utils.text_processor import TextProcessor
 from app.utils.exceptions import MatchingServiceError
 

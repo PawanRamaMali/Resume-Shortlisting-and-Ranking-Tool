@@ -2,6 +2,7 @@ from app.extensions import db
 from sqlalchemy import Column, Integer, String, Text, Float, DateTime, Boolean
 from sqlalchemy.sql import func
 import json
+from pathlib import Path
 
 class CandidateModel(db.Model):
     __tablename__ = 'candidates'
@@ -23,7 +24,7 @@ class CandidateModel(db.Model):
     
     def to_candidate(self):
         """Convert database model to Candidate dataclass"""
-        from app.extensions import Candidate
+        from app.models.candidate import Candidate
         
         return Candidate(
             id=self.id,
@@ -73,7 +74,7 @@ class JobDescriptionModel(db.Model):
     
     def to_job_description(self):
         """Convert database model to JobDescription dataclass"""
-        from app.extensions import JobDescription
+        from app.models.job_description import JobDescription
         
         return JobDescription(
             id=self.id,

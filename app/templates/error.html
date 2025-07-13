@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Resume Shortlisting Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-danger">
+            <h4>An Error Occurred</h4>
+            <p>{{ error or "An unexpected error occurred. Please try again later." }}</p>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

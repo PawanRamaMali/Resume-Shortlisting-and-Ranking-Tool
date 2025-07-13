@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found - Resume Shortlisting Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center">
+        <div class="py-5">
+            <h1 class="display-1 text-muted">404</h1>
+            <h2>Page Not Found</h2>
+            <p class="lead">The page you are looking for doesn't exist.</p>
+            
+            <div class="mt-4">
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

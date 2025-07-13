@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Resume Shortlisting Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center">
+        <h1 class="mb-4">Resume Shortlisting and Ranking Tool</h1>
+        <p class="lead">NLP based resume shortlisting and ranking system based on Job Description</p>
+        
+        {% if session.logged_in %}
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h3>Select Job Description</h3>
+                </div>
+                <div class="card-body">
+                    {% if job_options %}
+                        <form action="{{ url_for('resume.process_resumes') }}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group mb-3">
+                                <select class="form-select form-select-lg" name="job_description" required>
+                                    <option value="">Choose a job description...</option>
+                                    {% for option in job_options %}
+                                        <option value="{{ option.name }}">{{ option.display_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg">Start Screening</button>
+                        </form>
+                    {% else %}
+                        <div class="alert alert-warning">
+                            <p>No job description files found. Please add job description files to the system.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="mt-5">
+                <p>Please log in to use the resume screening system.</p>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">Login</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Job Description</h5>
+                <p class="card-text">Essential job requirements, responsibilities, and skills required to perform a specific role.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-user fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Resume</h5>
+                <p class="card-text">Professional qualifications, including experience, skills, education, and notable accomplishments.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-robot fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">AI/ML Screening</h5>
+                <p class="card-text">Capable of screening thousands of resumes in few minutes to identify the best fit.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Get Started</h5>
+                <p class="card-text">Rank your resumes with the job description and get the best matches.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

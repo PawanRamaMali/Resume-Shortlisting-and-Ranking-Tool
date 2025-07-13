@@ -25,13 +25,13 @@ gensim==4.3.2
 
 # Database
 SQLAlchemy==2.0.21
+psycopg2-binary==2.9.7  # PostgreSQL adapter
 
 # Caching
 redis==4.6.0
 
 # Utilities
 python-dotenv==1.0.0
-pathlib2==2.3.7
 
 # HTTP requests
 requests==2.31.0
