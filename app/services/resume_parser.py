@@ -6,7 +6,7 @@ import re
 import docx2txt
 import PyPDF2
 import textract
-from app.models.candidate import Candidate
+from app.extensions import Candidate
 from app.utils.text_processor import TextProcessor
 from app.utils.exceptions import ResumeParsingError
 

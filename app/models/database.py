@@ -23,7 +23,7 @@ class CandidateModel(db.Model):
     
     def to_candidate(self):
         """Convert database model to Candidate dataclass"""
-        from app.models.candidate import Candidate
+        from app.extensions import Candidate
         
         return Candidate(
             id=self.id,
@@ -73,7 +73,7 @@ class JobDescriptionModel(db.Model):
     
     def to_job_description(self):
         """Convert database model to JobDescription dataclass"""
-        from app.models.job_description import JobDescription
+        from app.extensions import JobDescription
         
         return JobDescription(
             id=self.id,

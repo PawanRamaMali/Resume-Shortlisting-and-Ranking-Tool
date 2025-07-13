@@ -25,10 +25,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
-COPY requirements/production.txt requirements.txt
+COPY /requirements .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r development.txt
 
 # Download NLTK data
 RUN python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet')"
@@ -47,4 +47,4 @@ ENV FLASK_APP=run.py
 EXPOSE 8000
 
 # Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "run:app"]
+CMD ["python", "run.py"]
