@@ -10,6 +10,22 @@ class TextProcessor:
     """Utility class for text processing operations"""
     
     def __init__(self):
+        # Download required NLTK data if not present
+        try:
+            nltk.data.find('tokenizers/punkt')
+        except LookupError:
+            nltk.download('punkt')
+        
+        try:
+            nltk.data.find('corpora/stopwords')
+        except LookupError:
+            nltk.download('stopwords')
+            
+        try:
+            nltk.data.find('corpora/wordnet')
+        except LookupError:
+            nltk.download('wordnet')
+        
         self.stop_words = set(stopwords.words('english'))
         self.lemmatizer = WordNetLemmatizer()
     

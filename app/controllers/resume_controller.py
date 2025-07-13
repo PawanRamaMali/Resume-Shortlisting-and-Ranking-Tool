@@ -3,7 +3,7 @@ from pathlib import Path
 from app.services.resume_parser import ResumeParserFactory
 from app.services.matching_service import ResumeMatchingService
 from app.services.file_service import FileService
-from app.extensions import JobDescription
+from app.models.job_description import JobDescription
 from app.utils.decorators import login_required
 from app.utils.exceptions import ResumeParsingError, MatchingServiceError, FileServiceError
 import logging

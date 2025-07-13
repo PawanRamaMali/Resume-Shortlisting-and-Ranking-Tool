@@ -25,6 +25,7 @@ gensim==4.3.2
 
 # Database
 SQLAlchemy==2.0.21
+psycopg2-binary==2.9.7  # PostgreSQL adapter
 
 # Caching
 redis==4.6.0

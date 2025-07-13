@@ -1,60 +1,56 @@
+"""
+Flask Extensions
+
+This module initializes and configures all Flask extensions used by the application.
+Extensions are initialized here but configured in the application factory.
+"""
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_caching import Cache
 
+# Initialize extensions
+# These will be configured in the application factory (create_app)
 db = SQLAlchemy()
 migrate = Migrate()
 cache = Cache()
 
-# app/models/candidate.py
-from dataclasses import dataclass, field
-from typing import List, Optional, Dict, Any
-from pathlib import Path
-import uuid
-
-@dataclass
-class Candidate:
-    """Data model for candidate information extracted from resume"""
+def init_extensions(app):
+    """
+    Initialize all Flask extensions with the application instance.
     
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    name: Optional[str] = None
-    email: Optional[str] = None
-    phone: Optional[str] = None
-    skills: List[str] = field(default_factory=list)
-    education: List[str] = field(default_factory=list)
-    experience: List[str] = field(default_factory=list)
-    competencies: Dict[str, List[str]] = field(default_factory=dict)
-    resume_path: Optional[Path] = None
-    resume_text: Optional[str] = None
-    score: Optional[float] = None
-    rank: Optional[int] = None
+    Args:
+        app: Flask application instance
+    """
+    # Initialize SQLAlchemy
+    try:
+        db.init_app(app)
+        app.logger.info("Database initialized successfully")
+    except Exception as e:
+        app.logger.error(f"Failed to initialize database: {e}")
+        # In development, fall back to SQLite if PostgreSQL fails
+        if app.config.get('FLASK_ENV') == 'development':
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fallback.db'
+            db.init_app(app)
+            app.logger.warning("Fell back to SQLite database")
+        else:
+            raise
     
-    @property
-    def display_name(self) -> str:
-        """Return display name or filename if name not extracted"""
-        if self.name:
-            return self.name
-        if self.resume_path:
-            return self.resume_path.stem
-        return f"Candidate_{self.id[:8]}"
+    # Initialize Flask-Migrate
+    migrate.init_app(app, db)
     
-    @property
-    def skills_text(self) -> str:
-        """Return skills as comma-separated string"""
-        return ", ".join(self.skills) if self.skills else ""
+    # Initialize Flask-Caching
+    try:
+        cache.init_app(app)
+        app.logger.info("Cache initialized successfully")
+    except Exception as e:
+        app.logger.warning(f"Cache initialization failed, using simple cache: {e}")
+        app.config['CACHE_TYPE'] = 'simple'
+        cache.init_app(app)
     
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert candidate to dictionary for serialization"""
-        return {
-            'id': self.id,
-            'name': self.name,
-            'email': self.email,
-            'phone': self.phone,
-            'skills': self.skills,
-            'education': self.education,
-            'experience': self.experience,
-            'competencies': self.competencies,
-            'resume_path': str(self.resume_path) if self.resume_path else None,
-            'score': self.score,
-            'rank': self.rank
-        }
+    # Configure cache with app context
+    with app.app_context():
+        try:
+            cache.clear()  # Clear any existing cache on startup
+        except Exception as e:
+            app.logger.warning(f"Could not clear cache on startup: {e}")
