@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Resume Shortlisting Tool{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center">
+        <div class="py-5">
+            <h1 class="display-1 text-muted">500</h1>
+            <h2>Internal Server Error</h2>
+            <p class="lead">Something went wrong on our end. Please try again later.</p>
+            
+            <div class="mt-4">
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">Return to Home</a>
+                <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

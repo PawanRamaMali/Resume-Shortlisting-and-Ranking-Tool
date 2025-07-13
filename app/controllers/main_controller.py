@@ -9,15 +9,36 @@ main_bp = Blueprint('main', __name__)
 def index():
     """Main landing page"""
     try:
-        file_service = FileService()
-        job_files = file_service.get_job_description_files()
-        
-        # Convert to simple objects for template
-        job_options = [{'name': file.name, 'display_name': file.stem} 
-                      for file in job_files]
+        # Check if file service is working
+        try:
+            file_service = FileService()
+            job_files = file_service.get_job_description_files()
+            
+            # Convert to simple objects for template
+            job_options = [{'name': file.name, 'display_name': file.stem} 
+                          for file in job_files]
+        except Exception as e:
+            logger.warning(f"Error getting job files: {e}")
+            job_options = []
         
         return render_template('index.html', job_options=job_options)
         
     except Exception as e:
         logger.error(f"Error loading main page: {e}")
-        return render_template('error.html', error="Failed to load page"), 500
+        # Return a simple HTML response if templates fail
+        return f"""
+        <html>
+        <head><title>RSART - Resume Shortlisting Tool</title></head>
+        <body>
+            <h1>Resume Shortlisting and Ranking Tool</h1>
+            <p>Welcome to RSART. The application is running but encountered an error loading the full interface.</p>
+            <p>Error: {str(e)}</p>
+            <p><a href="/auth/login">Login</a></p>
+        </body>
+        </html>
+        """, 500
+
+@main_bp.route('/health')
+def health_check():
+    """Simple health check endpoint"""
+    return {'status': 'ok', 'message': 'RSART is running'}

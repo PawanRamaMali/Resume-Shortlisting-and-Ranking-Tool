@@ -32,7 +32,6 @@ redis==4.6.0
 
 # Utilities
 python-dotenv==1.0.0
-pathlib2==2.3.7
 
 # HTTP requests
 requests==2.31.0

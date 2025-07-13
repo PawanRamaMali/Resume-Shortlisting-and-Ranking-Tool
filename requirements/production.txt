@@ -8,6 +8,3 @@ sentry-sdk[flask]==1.32.0
 
 # Environment management
 python-decouple==3.8
-
-# Additional production dependencies
-curl==7.88.1  # For health checks
